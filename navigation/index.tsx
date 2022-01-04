@@ -3,17 +3,19 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
+import {FontAwesome, Ionicons} from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import {ColorSchemeName, Pressable,Image} from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
+import HomeScreen from '../screens/HomeScreen';
+import AccountScreen from '../screens/AccountScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
@@ -58,10 +60,46 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
+        <BottomTab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={({ navigation }: RootTabScreenProps<'Home'>) => ({
+                title: 'Home',
+                tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+                headerRight: () => (
+                    <Pressable
+                        onPress={() => navigation.navigate('Modal')}
+                        style={({ pressed }) => ({
+                            opacity: pressed ? 0.5 : 1,
+                        })}>
+                        <FontAwesome
+                            name="bell-o"
+                            size={25}
+                            color={Colors[colorScheme].text}
+                            style={{ marginRight: 15 }}
+                        />
+                    </Pressable>
+                ),
+                headerLeft: () => (
+                    <Pressable
+                        onPress={() => navigation.navigate('Modal')}
+                        style={({ pressed }) => ({
+                            opacity: pressed ? 0.5 : 1,
+                        })}>
+
+                        <Image
+                            style={{ width: 30, height: 30 ,marginLeft:15}}
+                            source={require('../assets/images/icon.png')}
+                        />
+
+                    </Pressable>
+                ),
+            })}
+        />
       <BottomTab.Screen
         name="TabOne"
         component={TabOneScreen}
@@ -92,6 +130,14 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
+        <BottomTab.Screen
+            name="Account"
+            component={AccountScreen}
+            options={{
+                title: 'Account',
+                tabBarIcon: ({ color }) => <TabBarIcon name="user-circle-o" color={color} />,
+            }}
+        />
     </BottomTab.Navigator>
   );
 }
