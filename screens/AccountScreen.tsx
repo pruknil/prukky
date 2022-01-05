@@ -1,7 +1,7 @@
 import {FlatList, ScrollView,  StyleSheet} from 'react-native';
 import {Text, View} from '../components/Themed';
 import * as React from "react";
-import {Button,Card,  Icon, ListItem} from "react-native-elements";
+import {Avatar, Button, Card, Icon, ListItem} from "react-native-elements";
 
 type List1Data = {
   title: string;
@@ -56,9 +56,17 @@ export default function AccountScreen() {
         <ListItem bottomDivider={false}
                   containerStyle={styles.listitem}
         >
-          <Icon name="bedtime" />
+          <Avatar
+              size={64}
+              rounded
+              //icon={{ name: 'pencil', type: 'font-awesome' }}
+              //source={{uri:'https://cdn.pixabay.com/photo/2020/09/18/05/58/lights-5580916__340.jpg'}}
+              title="PN"
+              containerStyle={{ backgroundColor: '#6733b9' }}
+          />
           <ListItem.Content>
             <ListItem.Title>Pruk Nilsuriyakon</ListItem.Title>
+            <ListItem.Subtitle>member</ListItem.Subtitle>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -73,7 +81,6 @@ export default function AccountScreen() {
             keyExtractor={(a: List1Data, index: number) => index.toString()}
             renderItem={renderRow}
             scrollEnabled={false}
-            ListFooterComponent={<React.Fragment></React.Fragment>}
         />
       </Card>
       <Button
