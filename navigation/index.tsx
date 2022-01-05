@@ -20,7 +20,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import {SearchBar} from "react-native-elements";
+import {Badge, SearchBar} from "react-native-elements";
 import styleToBarStyle from "expo-status-bar/build/styleToBarStyle";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -64,15 +64,14 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-          tabBarActiveBackgroundColor:Colors[colorScheme].background,
+          //tabBarActiveBackgroundColor:Colors[colorScheme].background,
           tabBarActiveTintColor: Colors[colorScheme].tint,
-          tabBarInactiveTintColor:Colors[colorScheme].background,
-          tabBarInactiveBackgroundColor:Colors[colorScheme].tint,
+          //tabBarInactiveTintColor:Colors[colorScheme].background,
+          //tabBarInactiveBackgroundColor:Colors[colorScheme].tint,
           headerShown: true,
       }}
     >
         <BottomTab.Screen
-
             name="Home"
             component={HomeScreen}
             options={({ navigation }: RootTabScreenProps<'Home'>) => ({
@@ -85,12 +84,19 @@ function BottomTabNavigator() {
                         style={({ pressed }) => ({
                             opacity: pressed ? 0.5 : 1,
                         })}>
+
                         <FontAwesome
                             name="bell-o"
                             size={25}
                             color={Colors[colorScheme].text}
                             style={{ marginRight: 15 }}
                         />
+                        <Badge
+                            status="error"
+                            value={9}
+                            containerStyle={{ position: 'absolute', top: 0, left: 12 }}
+                        />
+
                     </Pressable>
                 ),
                 headerLeft: () => (

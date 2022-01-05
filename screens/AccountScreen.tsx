@@ -1,8 +1,7 @@
-import {FlatList, StyleSheet} from 'react-native';
-import { Text, View } from '../components/Themed';
+import {FlatList, ScrollView,  StyleSheet} from 'react-native';
+import {Text, View} from '../components/Themed';
 import * as React from "react";
-import {Button, Icon,ListItem} from "react-native-elements";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {Button,Card,  Icon, ListItem} from "react-native-elements";
 
 type List1Data = {
   title: string;
@@ -40,10 +39,7 @@ const log = () => console.log('this is an example method');
 
 const renderRow = ({ item }: { item: List1Data }) => {
   return (
-      <ListItem
-          onPress={item.callback}
-          bottomDivider
-      >
+      <ListItem onPress={item.callback} bottomDivider={false} containerStyle={styles.listitem}>
         <Icon type={item.type} name={item.icon} />
         <ListItem.Content>
           <ListItem.Title>{item.title}</ListItem.Title>
@@ -52,15 +48,44 @@ const renderRow = ({ item }: { item: List1Data }) => {
       </ListItem>
   );
 };
+
 export default function AccountScreen() {
   return (
-    <View style={styles.container}>
-      <FlatList
-          data={list1}
-          keyExtractor={(a: List1Data, index: number) => index.toString()}
-          renderItem={renderRow}
+    <ScrollView >
+      <Card containerStyle={styles.card}>
+        <ListItem bottomDivider={false}
+                  containerStyle={styles.listitem}
+        >
+          <Icon name="bedtime" />
+          <ListItem.Content>
+            <ListItem.Title>Pruk Nilsuriyakon</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      </Card>
+
+
+
+      <Text>Settings</Text>
+      <Card containerStyle={styles.card}>
+        <FlatList
+            data={list1}
+            keyExtractor={(a: List1Data, index: number) => index.toString()}
+            renderItem={renderRow}
+            scrollEnabled={false}
+            ListFooterComponent={<React.Fragment></React.Fragment>}
+        />
+      </Card>
+      <Button
+          title="Sign Out"
+          buttonStyle={{
+            borderWidth: 2,
+            borderColor: 'white',
+            borderRadius: 25,
+          }}
+          titleStyle={styles.title}
       />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -68,15 +93,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  card:{
+    backgroundColor:'rgba(56, 172, 236, 1)',
+    borderWidth:0,
+    borderRadius:10,
+    paddingVertical:0,
+    paddingHorizontal:10,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  listitem:{
+    backgroundColor:'rgba(56, 172, 236, 1)',
+    borderWidth: 0,
+    borderColor: 'white',
+    borderRadius: 0,
+    marginLeft:0,
+    marginTop:0,
+
   },
 });
