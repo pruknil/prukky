@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Pressable,Image} from 'react-native';
+import {ColorSchemeName, Pressable, Image, View, TextInput, SafeAreaView} from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -20,6 +20,8 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import {SearchBar} from "react-native-elements";
+import styleToBarStyle from "expo-status-bar/build/styleToBarStyle";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -62,12 +64,19 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
+          tabBarActiveBackgroundColor:Colors[colorScheme].background,
+          tabBarActiveTintColor: Colors[colorScheme].tint,
+          tabBarInactiveTintColor:Colors[colorScheme].background,
+          tabBarInactiveBackgroundColor:Colors[colorScheme].tint,
+          headerShown: true,
+      }}
+    >
         <BottomTab.Screen
+
             name="Home"
             component={HomeScreen}
             options={({ navigation }: RootTabScreenProps<'Home'>) => ({
+                headerTitle:"xx",
                 title: 'Home',
                 tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
                 headerRight: () => (
